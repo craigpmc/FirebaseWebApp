@@ -15,7 +15,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
     "react-router-dom": "^4.1.1"
   }
 }

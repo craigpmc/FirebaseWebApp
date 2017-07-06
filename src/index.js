@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './component/app/App';
+import './styles/index.css';
+import Routes from './component/Routes';
 import registerServiceWorker from './registerServiceWorker';
 import * as firebase from 'firebase';
 
@@ -15,5 +15,5 @@ const config = {
 };
 firebase.initializeApp(config);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Routes />, document.getElementById('root'));
 registerServiceWorker();
