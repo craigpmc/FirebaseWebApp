@@ -11,7 +11,8 @@ export default class App extends React.Component {
         return fetch('https://ergast.com/api/f1/current/last/drivers.json', {
             method: 'GET'
         }).then(res => {
-            console.log(res)
+            console.log(res);
+            window.location.replace("/details");
         }).catch(err => {
             console.error('error', err);
             throw err
