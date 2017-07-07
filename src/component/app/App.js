@@ -1,32 +1,46 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 export default class App extends React.Component {
 
     componentWillMount() {
-        document.title = "Home Page"
+        document.title = "Home Page";
+        this.fetchData()
     }
 
-    onRecoverData = () => {
-        return fetch('https://ergast.com/api/f1/current/last/drivers.json', {
-            method: 'GET'
-        }).then(res => {
-            console.log(res);
-            window.location.replace("/details");
-        }).catch(err => {
-            console.error('error', err);
-            throw err
-        })
+    fetchData = () => {
+        const url = 'https://ergast.com/api/f1/current/last/drivers.json';
+
+        fetch(url).then((response) => {
+            return response.json();
+        }).then((data) => {
+            // console.log(data.MRData.DriverTable);
+            const array = data.MRData.DriverTable.Drivers;
+            this.calcAverage(array);
+        });
     };
 
-    // getPilotsAgesAverage = () => {
-    //     // map on array of DOB pilots
-    //     const date = new Date('1995/03/17');
-    //     const today = new Date();
-    //     const diff = Math.abs(today.getTime() - date.getTime());
-    //     const average = Math.ceil(diff / (1000 * 3600 * 24)) / 365;
-    //     return average / index
-    // };
+    calcAverage = (array) => {
+        // console.log('ARRAY: ', array)
+        let average = 0;
+
+        array.map((pilot) => {
+            // console.log('DOB: ', pilot.dateOfBirth);
+
+            const date = new Date(pilot.dateOfBirth);
+            const today = new Date();
+
+            const timeDiff = Math.abs(today.getTime() - date.getTime());
+            const age = Math.ceil(timeDiff / (1000 * 3600 * 24)) / 365;
+            console.log(age);
+            average += age;
+        });
+
+        console.log('AVERAGE: ', average / array.length);
+        return average / array.length
+    };
 
   render() {
 
@@ -36,7 +50,7 @@ export default class App extends React.Component {
               <h2 className="mb-4 pb-2" style={{ borderBottom: '2px solid white' }}>Welcome !</h2>
               <img src={logo} width="150" height="150" className="mb-4"/>
               <p>Details: onclick button, display drivers ages of the last run.</p>
-              <button className="btn btn-secondary" onClick={this.onRecoverData}>
+              <button className="btn btn-secondary" onClick={this.fetchData}>
                   See details
               </button>
           </div>
