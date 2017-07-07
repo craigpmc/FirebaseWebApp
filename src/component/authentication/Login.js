@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase, { auth } from 'firebase';
+import firebase from 'firebase';
 
 const config = {
     apiKey: "AIzaSyA-oX24CIWpvrnT8VZsVLVJmkgIDE0BYDM",
@@ -11,9 +11,6 @@ const config = {
 };
 firebase.initializeApp(config);
 
-//auth.createUserWithEmailAndPassword(email, password);
-//auth.onAuthStateChanged(firebaseUser => {});
-
 export default class Login extends React.Component {
 
     componentWillMount() {
@@ -21,12 +18,15 @@ export default class Login extends React.Component {
     }
 
     onLogIn = () => {
-        window.location.replace("/home");
-        // const email = this.inputEmail.value.trim();
-        // const pass = this.inputPass.value;
-        //
-        // const promise = auth.signInWithEmailAndPassword(email, pass);
-        // promise.catch(e => console.log(e.message))
+        const email = this.inputEmail.value.trim();
+        const password = this.inputPass.value;
+
+        firebase.auth().signInWithEmailAndPassword(email, password).then((response) => {
+                console.log('ok: ', response);
+                window.location.replace("/home");
+        }).catch((error) => {
+            console.log('error: ', error.code, ': ', error.message);
+        });
     };
 
     render() {
