@@ -1,7 +1,6 @@
 import React from 'react';
 import Login from './authentication/Login';
 import App from './app/App';
-import Details from './content/Details';
 import {
     BrowserRouter as Router,
     Route,
@@ -19,9 +18,8 @@ const Routes = () => (
                 </Link>
             </nav>
 
-            <Route path="/login" component={Login}/>
+            <Route exact path="/" component={Login}/>
             <Route path="/home" component={App}/>
-            <Route path="/details" component={Details}/>
 
             <footer className="navbar-inverse bg-inverse p-4 font-italic">
                 Developped by Stefanescu Valentin
