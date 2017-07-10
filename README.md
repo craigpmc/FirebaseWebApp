@@ -1,6 +1,10 @@
 # FirebaseWebApp
 Web application with Firebase and ReactJS
 
+# Authentification
+Email address: admin@admin.fr
+Password: password
+
 # Choices
 I have chosen ReactJS and Bootstrap (v4) because I work with these libraries every days.
 React because it is quickly to have an environment with react-create-app.
