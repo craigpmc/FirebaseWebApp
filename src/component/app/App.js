@@ -31,13 +31,11 @@ export default class App extends React.Component {
     };
 
     readOnDataBase = () => {
-        firebase.database().ref('/lastrace/').once('value').then((result) => {
-            console.log(result);
-            this.calcAverage(result);
-        });
+        firebase.database().ref('lastrace').on('value', this.calcAverage);
     };
 
-    calcAverage = (array) => {
+    calcAverage = (data) => {
+        const array = data.val();
         let average = 0;
 
         array.map((pilot) => {
@@ -64,7 +62,9 @@ export default class App extends React.Component {
               <button className="btn btn-secondary" onClick={this.readOnDataBase}>
                   See details
               </button>
-              {average !== null ? average : null}
+                {average !== null ?
+                <span className="mt-3 p-2" style={{ border: '2px solid white' }}>{average}</span>
+                : null}
           </div>
       </div>
     );
